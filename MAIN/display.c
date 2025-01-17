@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "student_db.h"
 #include "bplus_tree.h"
 
 #define MAX_STRING_SIZE 100
-
 
 void display_all_students(StudentDB *db)
 {
@@ -26,31 +26,20 @@ void display_all_students(StudentDB *db)
         return;
     }
 
-    printf("All Students in the Database:\n");
-    
+    printf("\nAll Students in the Database:\n");
+    printf("--------------------------------------------------------------------------------------------------------\n");
+    printf("| %-10s | %-20s | %-15s | %-10s | %-10s |\n", "Student ID", "Name", "Username", "CGPA", "Department");
+    printf("--------------------------------------------------------------------------------------------------------\n");
 
-    
     Student student;
+
     while (fread(&student, sizeof(Student), 1, file) == 1)
     {
-        printf("Student ID: %d\n", student.student_id);
-        printf("Name: %s\n", student.name);
-        printf("Username: %s\n", student.username);
-        printf("Email: %s\n", student.email);
-        printf("Phone Number: %s\n", student.phone_number);
-        printf("Semester: %s\n", student.semester);
-        printf("CGPA: %.2f\n", student.CGPA);
-        printf("Department: %s\n", student.department);
-        printf("Date of Birth: %s\n", student.date_of_birth);
-        printf("Date of Admission: %s\n", student.date_of_admission);
-        printf("Blood Group: %s\n", student.blood_group);
-        printf("Address: %s\n", student.address);
-        printf("Advisor: %s\n", student.advisor);
-        printf("Marital Status: %s\n", student.marital_status);
-        printf("Credits Completed: %d\n", student.credits_completed);
-        printf("Unique ID: %s\n", student.unique_id);
-        
+        printf("| %-10d | %-20s | %-15s | %-10.2f | %-10s |\n",
+               student.student_id, student.name, student.username, student.CGPA, student.department);
     }
+
+    printf("--------------------------------------------------------------------------------------------------------\n");
 
     fclose(file); 
 }
